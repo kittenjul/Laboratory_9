@@ -12,16 +12,22 @@ columns = ['PassengerId',	'Survived',	'Pclass',	'Name',	'Sex',	'Age',	'SibSp',
 
 index = columns.index(choice)
 
-with open('data.csv') as file:
+def get_empty_data(lines):
     missing = 0
     total = 0
     val = 0
-    reader = csv.reader(file)
-    for line in reader:
+    lines = csv.reader(file)
+    for line in lines:
         total += 1
         if line[index] == '':
             missing += 1
             val = missing / total * 100
+    return missing, val
+
+with open('data.csv') as file:
+    lines = index
+    missing, val = get_empty_data(lines)
+
 
 if choice == 'PassengerId':
     data = {'Категория': choice, 'Количество пассажиров без данных': missing, 'Доля,%': val}
